@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shop'
+    'shop',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -191,3 +193,13 @@ FIREBASE_CONFIG = {
     'appId': os.environ.get('FIREBASE_APP_ID', ''),
     'measurementId': os.environ.get('FIREBASE_MEASUREMENT_ID', ''),
 }
+import cloudinary
+
+cloudinary.config(
+    cloud_name="dyhyjjzar",
+    api_key="112926595127286",
+    api_secret="bW8XZ20P2f9EKaOwTs_kraoJx38",
+    secure=True
+)
+
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"

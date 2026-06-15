@@ -42,16 +42,27 @@
       </div>
       <a href="{% url 'shop:category_list' %}" class="btn btn-outline-brand btn-sm">View all <i class="fa-solid fa-arrow-right ms-1"></i></a>
     </div>
-    <div class="category-strip">
-      {% for cat in categories %}
-      <a class="category-chip reveal" href="{% url 'shop:category_detail' cat.slug %}">
-        <span class="chip-icon"><i class="fa-solid fa-tags"></i></span>
-        {{ cat.name|title }}
-      </a>
-      {% empty %}
-      <p class="text-muted">No categories yet.</p>
-      {% endfor %}
-    </div>
+  <div class="category-strip">
+  {% for cat in categories %}
+  <a class="category-chip reveal" href="{% url 'shop:category_detail' cat.slug %}">
+
+    {% if cat.image %}
+      <img src="{{ cat.image.url }}"
+           alt="{{ cat.name }}"
+           style="width:80px;height:80px;object-fit:cover;border-radius:12px;">
+    {% else %}
+      <span class="chip-icon">
+        <i class="fa-solid fa-tags"></i>
+      </span>
+    {% endif %}
+
+    <div class="mt-2">{{ cat.name|title }}</div>
+
+  </a>
+  {% empty %}
+  <p class="text-muted">No categories yet.</p>
+  {% endfor %}
+</div>
   </section>
 
   <!-- TRENDING -->

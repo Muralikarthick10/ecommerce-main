@@ -196,7 +196,7 @@ FIREBASE_CONFIG = {
 import cloudinary
 
 cloudinary.config(
-    cloud_name="dyhyjjzar",
+    cloud_name="dyhyjyzar",
     api_key="112926595127286",
     api_secret="bW8XZ20P2f9EKaOwTs_kraoJx38",
     secure=True

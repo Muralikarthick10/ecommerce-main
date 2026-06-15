@@ -193,6 +193,7 @@ FIREBASE_CONFIG = {
     'appId': os.environ.get('FIREBASE_APP_ID', ''),
     'measurementId': os.environ.get('FIREBASE_MEASUREMENT_ID', ''),
 }
+
 import cloudinary
 
 cloudinary.config(

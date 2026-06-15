@@ -1,0 +1,44 @@
+{% load static %}
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <a class="navbar-brand d-inline-flex" href="{% url 'shop:home' %}">
+          <i class="fa-solid fa-bag-shopping"></i> ShopKart
+        </a>
+        <p class="mt-2 mb-3" style="max-width: 320px;">Your premium destination for electronics, fashion, home and more — curated quality at fair prices.</p>
+        <div class="social-row">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-3 col-6">
+        <h6>Shop</h6>
+        <a href="{% url 'shop:home' %}">Home</a><br>
+        <a href="{% url 'shop:category_list' %}">Collections</a><br>
+        <a href="{% url 'shop:cart' %}">Cart</a><br>
+        <a href="{% url 'shop:wishlist' %}">Wishlist</a>
+      </div>
+      <div class="col-lg-2 col-md-3 col-6">
+        <h6>Account</h6>
+        <a href="{% url 'shop:profile' %}">My Profile</a><br>
+        <a href="{% url 'shop:order_list' %}">My Orders</a><br>
+        <a href="{% url 'shop:login' %}">Login</a><br>
+        <a href="{% url 'shop:register' %}">Register</a>
+      </div>
+      <div class="col-lg-4 col-md-12">
+        <h6>Stay in the loop</h6>
+        <p class="mb-2">Subscribe for offers and product drops.</p>
+        <form class="input-group" onsubmit="event.preventDefault(); if(window.showToast) showToast('Thanks for subscribing!','success');">
+          <input type="email" class="form-control" placeholder="Email address" required>
+          <button class="btn btn-brand" type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; {% now "Y" %} ShopKart. Crafted with <i class="fa-solid fa-heart text-danger"></i> for a great shopping experience.
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,66 @@
+{% extends 'shop/layouts/main.html' %}
+{% load static %}
+{% block title %}Order #{{ order.id }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <nav aria-label="breadcrumb" class="mb-2">
+    <ol class="breadcrumb small">
+      <li class="breadcrumb-item"><a href="{% url 'shop:order_list' %}">My orders</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Order #{{ order.id }}</li>
+    </ol>
+  </nav>
+
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+    <h2 class="section-title mb-0">Order #{{ order.id }}</h2>
+    <span class="status-pill status-{{ order.status }}">{{ order.get_status_display }}</span>
+  </div>
+
+  <!-- TRACKER -->
+  <div class="surface p-4 mb-4">
+    {% if order.is_cancelled %}
+    <div class="alert alert-danger mb-0"><i class="fa-solid fa-circle-xmark me-2"></i>This order was cancelled.</div>
+    {% else %}
+    <div class="tracker">
+      {% for step in order.tracking_steps %}
+      <div class="tracker-step {% if step.done %}done{% endif %} {% if step.active %}active{% endif %}">
+        <div class="tracker-dot">
+          {% if step.done %}<i class="fa-solid fa-check"></i>{% else %}<i class="fa-solid fa-circle" style="font-size:.5rem;"></i>{% endif %}
+        </div>
+        <div class="tracker-label">{{ step.label }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="surface p-4">
+        <h5 class="fw-bold mb-3">Items</h5>
+        {% for item in order.items.all %}
+        <div class="d-flex justify-content-between align-items-center py-2" style="border-bottom:1px solid var(--border);">
+          <div>
+            {% if item.product %}
+            <a href="{% url 'shop:product_detail' item.product.slug %}" class="fw-semibold" style="color:var(--text);">{{ item.product_name }}</a>
+            {% else %}<span class="fw-semibold">{{ item.product_name }}</span>{% endif %}
+            <div class="text-muted small">₹{{ item.price }} × {{ item.qty }}</div>
+          </div>
+          <div class="fw-bold">₹{{ item.sub_total }}</div>
+        </div>
+        {% endfor %}
+        <div class="summary-row total"><span>Total</span><span>₹{{ order.total }}</span></div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="surface p-4">
+        <h5 class="fw-bold mb-3">Shipping to</h5>
+        <p class="mb-1 fw-semibold">{{ order.full_name }}</p>
+        <p class="mb-1 text-muted">{{ order.phone }}</p>
+        <p class="mb-0 text-muted">{{ order.address }}{% if order.city %}, {{ order.city }}{% endif %}{% if order.pincode %} - {{ order.pincode }}{% endif %}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

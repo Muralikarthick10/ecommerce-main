@@ -1,0 +1,35 @@
+{% extends 'shop/layouts/main.html' %}
+{% load static %}
+{% block title %}My Orders{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="section-head"><h2 class="section-title">My orders</h2></div>
+
+  {% if orders %}
+  <div class="d-flex flex-column gap-3">
+    {% for order in orders %}
+    <a href="{% url 'shop:order_detail' order.id %}" class="surface p-3 p-md-4 text-decoration-none reveal" style="color:var(--text);">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <div>
+          <div class="fw-bold">Order #{{ order.id }}</div>
+          <small class="text-muted">{{ order.created_at|date:"M d, Y · H:i" }} · {{ order.items.count }} item{{ order.items.count|pluralize }}</small>
+        </div>
+        <div class="text-end">
+          <span class="status-pill status-{{ order.status }}">{{ order.get_status_display }}</span>
+          <div class="fw-bold mt-1">₹{{ order.total }}</div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <i class="fa-solid fa-box-open"></i>
+    <h5>No orders yet</h5>
+    <p>When you place an order it will show up here.</p>
+    <a href="{% url 'shop:home' %}" class="btn btn-primary mt-2">Start shopping</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

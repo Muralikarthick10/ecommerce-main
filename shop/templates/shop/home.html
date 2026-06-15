@@ -1,0 +1,79 @@
+
+{% extends "shop/layouts/main.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero reveal">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <span class="badge rounded-pill mb-3" style="background:rgba(255,255,255,.18);">New season · Up to 40% off</span>
+        <h1>Premium products,<br>delivered to your door.</h1>
+        <p>Discover electronics, fashion, home essentials and more — curated for quality and priced for everyone.</p>
+        <div class="d-flex flex-wrap gap-2 mt-4">
+          <a href="{% url 'shop:category_list' %}" class="btn btn-light-soft btn-lg"><i class="fa-solid fa-store me-2"></i>Shop now</a>
+          <a href="#trending" class="btn btn-lg text-white" style="border:1.5px solid rgba(255,255,255,.6);">Explore trending</a>
+        </div>
+      </div>
+      <div class="col-lg-5 d-none d-lg-block text-center">
+        <i class="fa-solid fa-bag-shopping" style="font-size:11rem;opacity:.25;"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE STRIP -->
+  <div class="row g-3 mt-1">
+    <div class="col-6 col-lg-3"><div class="surface p-3 h-100 d-flex align-items-center gap-3"><span class="chip-icon" style="margin:0;"><i class="fa-solid fa-truck-fast"></i></span><div><div class="fw-bold">Free Delivery</div><small class="text-muted">On orders over ₹499</small></div></div></div>
+    <div class="col-6 col-lg-3"><div class="surface p-3 h-100 d-flex align-items-center gap-3"><span class="chip-icon" style="margin:0;"><i class="fa-solid fa-rotate-left"></i></span><div><div class="fw-bold">Easy Returns</div><small class="text-muted">7-day return policy</small></div></div></div>
+    <div class="col-6 col-lg-3"><div class="surface p-3 h-100 d-flex align-items-center gap-3"><span class="chip-icon" style="margin:0;"><i class="fa-solid fa-shield-halved"></i></span><div><div class="fw-bold">Secure Payments</div><small class="text-muted">100% protected</small></div></div></div>
+    <div class="col-6 col-lg-3"><div class="surface p-3 h-100 d-flex align-items-center gap-3"><span class="chip-icon" style="margin:0;"><i class="fa-solid fa-headset"></i></span><div><div class="fw-bold">24/7 Support</div><small class="text-muted">Live chat help</small></div></div></div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Browse</span>
+        <h2 class="section-title">Shop by category</h2>
+      </div>
+      <a href="{% url 'shop:category_list' %}" class="btn btn-outline-brand btn-sm">View all <i class="fa-solid fa-arrow-right ms-1"></i></a>
+    </div>
+    <div class="category-strip">
+      {% for cat in categories %}
+      <a class="category-chip reveal" href="{% url 'shop:category_detail' cat.slug %}">
+        <span class="chip-icon"><i class="fa-solid fa-tags"></i></span>
+        {{ cat.name|title }}
+      </a>
+      {% empty %}
+      <p class="text-muted">No categories yet.</p>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- TRENDING -->
+  <section class="section" id="trending">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Hot right now</span>
+        <h2 class="section-title">Trending products</h2>
+      </div>
+      <a href="{% url 'shop:category_list' %}" class="btn btn-outline-brand btn-sm">See more</a>
+    </div>
+
+    {% if products %}
+    <div class="product-grid">
+      {% for item in products %}
+        {% include "shop/inc/product_card.html" with item=item %}
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state"><i class="fa-solid fa-box-open"></i><p>No products available yet.</p></div>
+    {% endif %}
+  </section>
+
+</div>
+{% endblock %}

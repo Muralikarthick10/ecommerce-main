@@ -1,0 +1,62 @@
+{% extends 'shop/layouts/main.html' %}
+{% load static %}
+{% block title %}Cart{% endblock title %}
+
+{% block content %}
+<div class="container">
+  <div class="section-head"><h2 class="section-title">Your cart</h2></div>
+
+  {% if items %}
+  <div class="row g-4">
+    <div class="col-lg-8">
+      {% for item in items %}
+      <div class="cart-item">
+        {% if item.product.image %}
+        <img class="cart-thumb" src="{{ item.product.image.url }}" alt="{{ item.product.name }}" data-fallback="{% static 'images/placeholder.svg' %}">
+        {% else %}
+        <img class="cart-thumb" src="{% static 'images/placeholder.svg' %}" alt="{{ item.product.name }}">
+        {% endif %}
+
+        <div>
+          <a href="{% url 'shop:product_detail' item.product.slug %}" class="fw-bold d-block" style="color:var(--text);">{{ item.product.name }}</a>
+          <small class="text-muted">{{ item.product.category.name|title }}</small>
+          <div class="price-now mt-1" style="font-size:1.05rem;">₹{{ item.product.selling_price }}</div>
+        </div>
+
+        <div class="cart-actions text-end">
+          <form method="post" action="{% url 'shop:cart_update' item.product.id %}" class="d-inline-block">
+            {% csrf_token %}
+            <div class="qty-control">
+              <button name="action" value="decrease" type="submit" aria-label="Decrease">&minus;</button>
+              <span class="qty-val">{{ item.qty }}</span>
+              <button name="action" value="increase" type="submit" aria-label="Increase">+</button>
+            </div>
+          </form>
+          <div class="fw-bold mt-2">₹{{ item.sub_total }}</div>
+          <a href="{% url 'shop:cart_remove' item.product.id %}" class="btn btn-sm btn-light-soft mt-1"><i class="fa-regular fa-trash-can me-1"></i>Remove</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="col-lg-4">
+      <div class="surface p-4 summary-card">
+        <h5 class="fw-bold mb-3">Order summary</h5>
+        <div class="summary-row"><span>Subtotal</span><span>₹{{ sub_total }}</span></div>
+        <div class="summary-row"><span>Delivery</span><span class="text-success">Free</span></div>
+        <div class="summary-row total"><span>Total</span><span>₹{{ sub_total }}</span></div>
+        <a href="{% url 'shop:checkout' %}" class="btn btn-primary w-100 mt-3 btn-lg">Proceed to checkout</a>
+        <a href="{% url 'shop:home' %}" class="btn btn-light-soft w-100 mt-2">Continue shopping</a>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <h5>Your cart is empty</h5>
+    <p>Looks like you haven't added anything yet.</p>
+    <a href="{% url 'shop:home' %}" class="btn btn-primary mt-2">Start shopping</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock content %}

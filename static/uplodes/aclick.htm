@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="referrer" content="origin-when-cross-origin">
+    <script>//<![CDATA[
+      var s = false;
+      function l() {
+        setTimeout(f, 10000);
+        if (document.referrer) {
+          try {
+            var pm = /(^|&|\?)px=([^&]*)(&|$)/i;
+            var px = window.location.href.match(pm);
+            var rs = document.referrer;
+            if (px != null) {
+              if (rs.match(pm))
+                rs = rs.replace(pm, "$1px=" + px[2] + "$3");
+              else if (rs.indexOf("?") != -1)
+                rs = rs + "&px=" + px[2];
+              else
+                rs = rs + "?px=" + px[2];
+            }
+            history.replaceState({}, "Bing", rs);
+            window.addEventListener("pageshow", function(e) { if (e.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2)) window.location.reload(); });
+            s = true;
+            setTimeout(r, 10);
+            return;
+          } catch (e) {}
+        }
+        r();
+      }
+      function r() {
+        var u = "https://www.lenovo.com/in/en/p/tablets/android-tablets/lenovo-tab-series/lenovo-idea-tab-pro/zae40195in?cid=in:sem:c99728&msclkid=91afcb9b03b2106732e0a28e7c4aa915&utm_source=bing&utm_medium=cpc&utm_campaign=IN_IN_LEN_BAU_AP_SEM_MIC_PMAX_CONS_BF_REV_TAB_AlwaysOn&utm_term=2325054776578099&utm_content=Tablets";
+        if (s)
+          window.location.href = u;
+        else
+          window.location.replace(u);
+      }
+      function f() {
+        document.getElementById("fb").style.display = "block";
+      }
+      //]]>
+    </script>
+  </head>
+  <body onload="l()">
+    <div id="fb" style="display: none">
+      Please <a href="https://www.bing.com:443/aclick?ld=e8SqoFUrbrVj3htQHQMTdZwTVUCUys0Cbq8H0johTqW2vw3QekhkTltn8MY0EfsasIljPxdPmhn13nozzKPJz6oGRWHcAhfk2LM97PH-18XxHvKBx5kMAE_en_7vPaheP5qxn2R9T3Kv55uuwJd7Ry-SmyCU3yGAH79lkUiZPx5tkyASy8DaZ00B7GMpzE_zKh9QRpeyylGozhoIwQ8K-HdggbQNw&amp;u=aHR0cHMlM2ElMmYlMmZ3d3cubGVub3ZvLmNvbSUyZmluJTJmZW4lMmZwJTJmdGFibGV0cyUyZmFuZHJvaWQtdGFibGV0cyUyZmxlbm92by10YWItc2VyaWVzJTJmbGVub3ZvLWlkZWEtdGFiLXBybyUyZnphZTQwMTk1aW4lM2ZjaWQlM2RpbiUzYXNlbSUzYWM5OTcyOCUyNm1zY2xraWQlM2Q5MWFmY2I5YjAzYjIxMDY3MzJlMGEyOGU3YzRhYTkxNSUyNnV0bV9zb3VyY2UlM2RiaW5nJTI2dXRtX21lZGl1bSUzZGNwYyUyNnV0bV9jYW1wYWlnbiUzZElOX0lOX0xFTl9CQVVfQVBfU0VNX01JQ19QTUFYX0NPTlNfQkZfUkVWX1RBQl9BbHdheXNPbiUyNnV0bV90ZXJtJTNkMjMyNTA1NDc3NjU3ODA5OSUyNnV0bV9jb250ZW50JTNkVGFibGV0cw&amp;rlid=91afcb9b03b2106732e0a28e7c4aa915&amp;ntb=F">click here</a> if the page does not redirect automatically ...
+    </div>
+  </body>
+</html>

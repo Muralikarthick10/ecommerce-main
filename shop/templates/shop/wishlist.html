@@ -1,0 +1,24 @@
+{% extends 'shop/layouts/main.html' %}
+{% load static %}
+{% block title %}Wishlist{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="section-head"><h2 class="section-title">My wishlist</h2></div>
+
+  {% if items %}
+  <div class="product-grid">
+    {% for w in items %}
+      {% include "shop/inc/product_card.html" with item=w.product %}
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <i class="fa-regular fa-heart"></i>
+    <h5>Your wishlist is empty</h5>
+    <p>Save products you love to find them here later.</p>
+    <a href="{% url 'shop:home' %}" class="btn btn-primary mt-2">Discover products</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

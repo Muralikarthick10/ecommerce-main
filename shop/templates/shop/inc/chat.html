@@ -1,0 +1,24 @@
+<button class="chat-fab" id="chat-fab" type="button" aria-label="Open support chat">
+  <i class="fa-regular fa-comment-dots"></i>
+</button>
+
+<div class="chat-panel" id="chat-panel" role="dialog" aria-label="Customer support chat">
+  <div class="chat-head d-flex align-items-center justify-content-between">
+    <div>
+      <div class="fw-bold">Customer Support</div>
+      <small><span class="status-dot offline"></span><span id="chat-status-text">Connecting…</span></small>
+    </div>
+    <button class="btn btn-sm text-white" id="chat-close" type="button" aria-label="Close chat">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <div class="chat-body" id="chat-body">
+    <div class="chat-disabled"><div class="loader-ring mx-auto mb-2" style="width:32px;height:32px;"></div>Loading…</div>
+  </div>
+
+  <form class="chat-foot" id="chat-form">
+    <input class="form-control" id="chat-input" type="text" placeholder="Type a message…" autocomplete="off">
+    <button class="btn btn-brand" type="submit" aria-label="Send"><i class="fa-solid fa-paper-plane"></i></button>
+  </form>
+</div>

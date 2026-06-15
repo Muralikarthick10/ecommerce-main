@@ -1,0 +1,12 @@
+{% if messages %}
+<div class="d-none">
+  {% for msg in messages %}
+  <span data-server-message data-message="{{ msg|escapejs }}" data-level="{{ msg.tags|default:'info' }}"></span>
+  {% endfor %}
+</div>
+<noscript>
+  {% for msg in messages %}
+  <div class="alert alert-{{ msg.tags|default:'info' }}">{{ msg }}</div>
+  {% endfor %}
+</noscript>
+{% endif %}

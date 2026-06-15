@@ -1,0 +1,38 @@
+{% extends 'shop/layouts/main.html' %}
+{% load static %}
+
+{% block title %}Collections{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">Explore</span>
+      <h2 class="section-title">All collections</h2>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    {% for item in categories %}
+    <div class="col-6 col-md-4 col-lg-3">
+      <a href="{% url 'shop:category_detail' item.slug %}" class="card h-100 text-decoration-none reveal" style="overflow:hidden;">
+        <div class="product-media" style="aspect-ratio: 4/3;">
+          {% if item.image %}
+          <img src="{{ item.image.url }}" alt="{{ item.name }}" loading="lazy" data-fallback="{% static 'images/placeholder.svg' %}">
+          {% else %}
+          <img src="{% static 'images/placeholder.svg' %}" alt="{{ item.name }}" loading="lazy">
+          {% endif %}
+        </div>
+        <div class="card-body">
+          <h5 class="fw-bold mb-1" style="color:var(--text);">{{ item.name|title }}</h5>
+          <p class="text-muted small mb-2">{{ item.description|truncatechars:60|default:"Browse this collection" }}</p>
+          <span class="text-brand fw-semibold" style="color:var(--brand);">Shop now <i class="fa-solid fa-arrow-right ms-1"></i></span>
+        </div>
+      </a>
+    </div>
+    {% empty %}
+    <div class="col-12"><div class="empty-state"><i class="fa-solid fa-layer-group"></i><p>No categories found.</p></div></div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'shop/layouts/main.html' %}
+{% load static %}
+
+{% block title %}{{ category.name|title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <nav aria-label="breadcrumb" class="mb-2">
+    <ol class="breadcrumb small">
+      <li class="breadcrumb-item"><a href="{% url 'shop:home' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'shop:category_list' %}">Collections</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ category.name|title }}</li>
+    </ol>
+  </nav>
+
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">Collection</span>
+      <h2 class="section-title">{{ category.name|title }}</h2>
+      {% if category.description %}<p class="text-muted mb-0 mt-1">{{ category.description }}</p>{% endif %}
+    </div>
+    <span class="text-muted">{{ products|length }} item{{ products|length|pluralize }}</span>
+  </div>
+
+  {% if products %}
+  <div class="product-grid">
+    {% for item in products %}
+      {% include "shop/inc/product_card.html" with item=item %}
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state"><i class="fa-solid fa-box-open"></i><p>No products found in this category.</p></div>
+  {% endif %}
+</div>
+{% endblock %}

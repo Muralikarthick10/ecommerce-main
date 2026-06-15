@@ -1,0 +1,38 @@
+{% extends 'shop/layouts/main.html' %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-icon"><i class="fa-solid fa-right-to-bracket"></i></div>
+    <h3 class="text-center fw-bold mb-1">Welcome back</h3>
+    <p class="text-center text-muted mb-4">Sign in to continue to ShopKart</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.GET.next }}">
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Username</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+          <input class="form-control" name="username" placeholder="Your username" required>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Password</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+          <input type="password" id="login-pass" class="form-control" name="password" placeholder="Your password" required>
+          <span class="input-group-text" role="button" onclick="var p=document.getElementById('login-pass');p.type=p.type==='password'?'text':'password';">
+            <i class="fa-regular fa-eye"></i>
+          </span>
+        </div>
+      </div>
+      <button class="btn btn-primary w-100 btn-lg mt-2">Login</button>
+    </form>
+
+    <p class="text-center mt-4 mb-0">New here? <a href="{% url 'shop:register' %}" class="fw-semibold">Create an account</a></p>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,30 @@
+{% load static %}
+<div class="product-card reveal">
+  <div class="product-media">
+    {% if item.discount_percent %}<span class="product-badge">{{ item.discount_percent }}% OFF</span>{% endif %}
+    <a class="product-wish {% if item.id in wishlist_ids %}active{% endif %}"
+       href="{% url 'shop:wishlist_toggle' item.id %}?next={{ request.get_full_path|urlencode }}"
+       aria-label="Toggle wishlist" title="Add to wishlist">
+      <i class="fa-solid fa-heart"></i>
+    </a>
+    <a href="{% url 'shop:product_detail' item.slug %}">
+      {% if item.image %}
+      <img src="{{ item.image.url }}" alt="{{ item.name }}" loading="lazy" data-fallback="{% static 'images/placeholder.svg' %}">
+      {% else %}
+      <img src="{% static 'images/placeholder.svg' %}" alt="{{ item.name }}" loading="lazy">
+      {% endif %}
+    </a>
+  </div>
+  <div class="product-body">
+    <span class="product-cat">{{ item.category.name|title }}</span>
+    <h3 class="product-name"><a href="{% url 'shop:product_detail' item.slug %}">{{ item.name }}</a></h3>
+    <div class="price-row">
+      <span class="price-now">₹{{ item.selling_price }}</span>
+      {% if item.discount_percent %}<span class="price-old">₹{{ item.original_price }}</span>{% endif %}
+    </div>
+    <div class="product-actions">
+      <a href="{% url 'shop:product_detail' item.slug %}" class="btn btn-light-soft">Details</a>
+      <a href="{% url 'shop:add_to_cart' item.id %}" class="btn btn-primary"><i class="fa-solid fa-cart-plus me-1"></i>Add</a>
+    </div>
+  </div>
+</div>
